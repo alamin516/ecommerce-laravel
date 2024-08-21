@@ -1,0 +1,1 @@
+https://cdn.freelogovectors.net/wp-content/uploads/2023/10/daraz_logo-freelogovectors.net_.png
