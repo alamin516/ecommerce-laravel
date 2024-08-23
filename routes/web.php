@@ -15,9 +15,7 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [HomeController::class, 'home'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -31,24 +29,19 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-
 // Admin Route
-Route::get('/admin/dashbaord', [HomeController::class, 'index']);
+Route::get('/admin', [HomeController::class, 'index'])->middleware(['auth', 'admin'])->name('admin');
 
 Route::get('/orders', function () {
     return view('orders.orders');
 })->name('orders');
-
-Route::get('/profile.edit', function () {
-    return view('welcome');
-})->name('profile.edit');
 
 Route::get('/shop', function () {
     return view('store.store');
 })->name('shop');
 
 Route::get('/flash', function () {
-    return view('welcome');
+    return view('store.store');
 })->name('flash');
 
 

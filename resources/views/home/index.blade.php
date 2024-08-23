@@ -1,13 +1,13 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto">
         <!-- Include the slider partial -->
-        @include('partials.slider')
+        @include('home.slider')
 
         <div class="py-10">
             <h2 class="text-xl font-bold mb-4">
                 Categories
             </h2>
-            @include('categories-slider')
+            @include('home.categories-slider')
         </div>
 
         <div class="py-5">
@@ -16,7 +16,7 @@
             </h2>
             <div class="grid grid-cols-6">
                 @foreach ($products as $product)
-                @include('products.featured-products')
+                @include('home.featured-products')
                 @endforeach
             </div>
         </div>
@@ -27,7 +27,7 @@
             </h2>
             <div class="grid grid-cols-6">
                 @foreach ($products as $product)
-                @include('products.featured-products')
+                @include('home.featured-products')
                 @endforeach
             </div>
         </div>
@@ -38,7 +38,7 @@
             </h2>
             <div class="grid grid-cols-6">
                 @foreach ($products as $product)
-                @include('products.featured-products')
+                @include('home.featured-products')
                 @endforeach
             </div>
         </div>
