@@ -6,7 +6,6 @@
                     <i class="fa-solid fa-align-left"></i>
                 </span>
 
-
                 <a target="_blank" href="/">
                     <span class="cursor-pointer w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-50 focus:outline-none transition-colors duration-150 rounded-full p-2 transform ease-linear">
                         <i class="fa-solid fa-earth-americas"></i>
@@ -66,8 +65,11 @@
                 <a href="#"
                     class="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-600">Account
                     Settings</a>
-                <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-600">Sign
-                    Out</a>
+                <form class="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-600" method="POST"
+                    action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="w-full text-left">Logout</button>
+                </form>
             </div>
         </div>
     </div>

@@ -1,32 +1,3 @@
-<!-- <div class="admin-sidebar w-64 min-h-screen bg-gray-900 text-white relative shadow-lg overflow-hidden">
-    <div class="logo bg-gray-900 w-full sticky top-0 left-0 z-20 flex items-center justify-center h-16 border-b border-gray-700 shadow-md py-4 px-6">
-        <img class="max-w-[100%]" src="https://industrial.com.bd/public/assets/img/logo.png" alt="Industrial">
-    </div>
-    <ul class="flex flex-col space-y-1 p-2">
-        <li>
-            <a href="/admin" class="w-full flex items-center hover:text-white hover:bg-gray-800 transition-colors duration-300 rounded-md p-2">
-                <i class="fa-solid fa-tachometer-alt mr-2"></i> Dashboard
-            </a>
-        </li>
-        <li>
-            <a href="/admin/products" class="w-full flex items-center hover:text-white hover:bg-gray-800 transition-colors duration-300 rounded-md p-2">
-                <i class="fa-solid fa-box mr-2"></i> Products
-            </a>
-        </li>
-        <li>
-            <a href="/admin/orders" class="w-full flex items-center hover:text-white hover:bg-gray-800 transition-colors duration-300 rounded-md p-2">
-                <i class="fa-solid fa-clipboard-list mr-2"></i> Orders
-            </a>
-        </li>
-        <li>
-            <a href="/admin/customers" class="w-full flex items-center hover:text-white hover:bg-gray-800 transition-colors duration-300 rounded-md p-2">
-                <i class="fa-solid fa-users mr-2"></i> Customers
-            </a>
-        </li>
-    </ul>
-</div> -->
-
-
 <div class="md:hidden">
     <div @click="sidemenu = false" class="fixed inset-0 z-30 bg-gray-600 opacity-0 pointer-events-none transition-opacity ease-linear duration-300" :class="{'opacity-75 pointer-events-auto': sidemenu, 'opacity-0 pointer-events-none': !sidemenu}"></div>
 
@@ -142,7 +113,7 @@
 
 
 <!-- Menu Above Medium Screen -->
-<div class="bg-gray-900 w-64 min-h-screen overflow-y-auto hidden md:block shadow relative z-30 text-white" x-show="menu">
+<div class="admin-sidebar bg-gray-900 w-64 min-h-screen overflow-y-auto hidden md:block shadow relative z-30 text-white transition-all duration-300" x-show="menu">
 
     <!-- Brand Logo / Name -->
     <div class="logo bg-gray-900 w-full sticky top-0 left-0 z-20 flex items-center justify-center h-16 border-b border-gray-700 shadow-md py-4 px-6">
@@ -150,7 +121,7 @@
     </div>
     <!-- @end Brand Logo / Name -->
 
-    <div class="px-4 py-2">
+    <div class="flex flex-col justify-between min-h-[calc(100vh-4rem)]">
         <ul class="flex flex-col space-y-1 p-2">
             <li>
                 <a href="/admin" class="w-full flex items-center hover:text-white hover:bg-gray-800 transition-colors duration-300 rounded-md p-2">
@@ -161,6 +132,11 @@
                 <a href="/admin/products" class="w-full flex items-center hover:text-white hover:bg-gray-800 transition-colors duration-300 rounded-md p-2">
                     <i class="fa-solid fa-box mr-2"></i> Products
                 </a>
+                <ul class="">
+                    <li>
+                        <a href="{{url('admin/categories')}}" class="w-full flex items-center hover:text-white hover:bg-gray-800 transition-colors duration-300 rounded-md p-2 pl-8">Categories</a>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a href="/admin/orders" class="w-full flex items-center hover:text-white hover:bg-gray-800 transition-colors duration-300 rounded-md p-2">
@@ -174,13 +150,13 @@
             </li>
         </ul>
 
-        <div class="bg-orange-200 mb-10 p-6 rounded-lg mt-16">
-            <h2 class="text-gray-800 text-lg leading-tight">Try <strong class="font-bold">Dashing Admin.</strong></h2>
-            <p class="text-gray-800 text-lg mb-4 leading-tight">Premium for free!</p>
-
-            <button class="shadow text-center w-full block bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline text-white font-semibold py-2 px-4 rounded-lg">
-                30 Days Free Trail
-            </button>
+        <div class="mb-5 p-6 rounded-lg mt-16">
+            <!-- Logout Form -->
+            <form class="block py-2.5 px-4 rounded bg-blue-500 hover:text-white" method="POST"
+                action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="w-full text-left">Logout</button>
+            </form>
         </div>
     </div>
 </div>

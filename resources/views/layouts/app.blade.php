@@ -36,6 +36,8 @@
         <!-- Page Content -->
         <main>
             {{ $slot }}
+
+            @include('layouts.mobile-bottom-menu')
         </main>
     </div>
 </body>

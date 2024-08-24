@@ -29,11 +29,43 @@
             @include('admin.admin-header')
 
             <!-- Main Content -->
-            <main class="p-6 bg-white shadow-inner">
+            <main class="p-6 pb-0 bg-white shadow-inner">
                 @yield('children')
+                @include('admin.admin-footer')
             </main>
         </div>
     </div>
+
+
+    <script>
+        function confirmation(event, message) {
+            event.preventDefault();
+
+            let url = ''
+            if (event.currentTarget.getAttribute('href')) {
+                url = event.currentTarget.getAttribute('href')
+            }
+            console.log(url)
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: message || "This action cannot be undone!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 
 </body>
 

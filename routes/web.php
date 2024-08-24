@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -32,6 +33,18 @@ require __DIR__.'/auth.php';
 // Admin Route
 Route::get('/admin', [HomeController::class, 'index'])->middleware(['auth', 'admin'])->name('admin');
 
+Route::get('/admin/categories', [AdminController::class, 'admin_categories'])->middleware(['auth', 'admin']);
+Route::post('/admin/create_category', [AdminController::class, 'create_category'])->middleware(['auth', 'admin']);
+
+Route::get('/admin/delete_category/{id}', [AdminController::class, 'delete_category'])->middleware(['auth', 'admin']);
+
+
+
+
+
+
+
+// User
 Route::get('/orders', function () {
     return view('orders.orders');
 })->name('orders');
