@@ -1,3 +1,3 @@
-<div :class="menu ? 'pl-64' : ''" class="text-center font-semibold text-gray-500 py-2 !mt-2 fixed bottom-0 left-0 z-[99] w-full">
+<div :class="menu ? 'pl-0' : ''" class="text-center font-semibold text-gray-500 py-2 mt-10">
     &copy; {{date('Y')}} AA. All rights reserved.
 </div>

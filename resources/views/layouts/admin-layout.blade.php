@@ -38,6 +38,7 @@
 
 
     <script>
+        // Alert
         function confirmation(event, message) {
             event.preventDefault();
 
@@ -60,6 +61,30 @@
                     window.location.href = url;
                 }
             });
+        }
+
+        // Product image preview
+        function previewImage(event) {
+            const input = event.target;
+            const file = input.files[0];
+            const preview = document.getElementById('image-preview');
+            const placeholder = document.getElementById('placeholder');
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    placeholder.style.display = 'none';
+                }
+
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '';
+                preview.style.display = 'none';
+                placeholder.style.display = 'block';
+            }
         }
     </script>
 

@@ -129,10 +129,16 @@
                 </a>
             </li>
             <li>
-                <a href="/admin/products" class="w-full flex items-center hover:text-white hover:bg-gray-800 transition-colors duration-300 rounded-md p-2">
+                <a href="#" class="w-full flex items-center hover:text-white hover:bg-gray-800 transition-colors duration-300 rounded-md p-2">
                     <i class="fa-solid fa-box mr-2"></i> Products
                 </a>
                 <ul class="">
+                    <li>
+                        <a href="{{url('admin/products')}}" class="w-full flex items-center hover:text-white hover:bg-gray-800 transition-colors duration-300 rounded-md p-2 pl-8">All Products</a>
+                    </li>
+                    <li>
+                        <a href="{{url('admin/products/create')}}" class="w-full flex items-center hover:text-white hover:bg-gray-800 transition-colors duration-300 rounded-md p-2 pl-8">Add New Product</a>
+                    </li>
                     <li>
                         <a href="{{url('admin/categories')}}" class="w-full flex items-center hover:text-white hover:bg-gray-800 transition-colors duration-300 rounded-md p-2 pl-8">Categories</a>
                     </li>
