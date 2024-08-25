@@ -37,60 +37,9 @@
     </div>
 
 
-    <script>
-        // Alert
-        function confirmation(event, message) {
-            event.preventDefault();
-
-            let url = ''
-            if (event.currentTarget.getAttribute('href')) {
-                url = event.currentTarget.getAttribute('href')
-            }
-            console.log(url)
-
-            Swal.fire({
-                title: 'Are you sure?',
-                text: message || "This action cannot be undone!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = url;
-                }
-            });
-        }
-
-        // Product image preview
-        function previewImage(event) {
-            const input = event.target;
-            const file = input.files[0];
-            const preview = document.getElementById('image-preview');
-            const placeholder = document.getElementById('placeholder');
-
-            if (file) {
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                    placeholder.style.display = 'none';
-                }
-
-                reader.readAsDataURL(file);
-            } else {
-                preview.src = '';
-                preview.style.display = 'none';
-                placeholder.style.display = 'block';
-            }
-        }
-    </script>
+    <script src="{{ asset('js/main.js') }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
 
 </body>
 

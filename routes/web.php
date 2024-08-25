@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -52,6 +53,24 @@ Route::get('/admin/products', [AdminController::class, 'all_products'])->middlew
 Route::get('/admin/products/create', [AdminController::class, 'create_product'])->middleware(['auth','admin']);
 
 Route::post('/admin/upload_product', [AdminController::class, 'upload_product'])->middleware(['auth','admin']);
+
+Route::get('/admin/delete_product/{id}', [AdminController::class, 'delete_product'])->middleware(['auth','admin']);
+
+Route::get('/admin/edit_product/{id}', [AdminController::class, 'edit_product'])->middleware(['auth','admin']);
+
+Route::post('/admin/update_product/{id}', [AdminController::class, 'update_product'])->middleware(['auth','admin']);
+
+Route::get('/admin/duplicate_product/{id}', [AdminController::class, 'duplicate_product'])->middleware(['auth','admin']);
+
+Route::post('/admin/product/update-status', [ProductController::class, 'updateStatus']);
+
+
+
+
+// For User Product
+Route::get('/products/all', [ProductController::class, 'get_all_products']);
+
+Route::get('/product/{id}', [ProductController::class, 'get_product']);
 
 
 
