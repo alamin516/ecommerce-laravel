@@ -7,7 +7,7 @@
         <button onclick="window.location.href='/admin/products/create'" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-3 rounded-lg">Add New Product</button>
     </div>
 
-    <div class="shadow rounded-lg border">
+    <div class="shadow rounded-lg border overflow-auto">
         <div class="flex justify-between items-center mb-4 p-4 border-b overflow-x-auto">
             <div class="mb-4">
                 <h3 class="text-lg font-medium">All Product</h3>
@@ -26,38 +26,47 @@
                 </div>
 
                 <div>
-                    <select class="rounded-lg">
-                        <option>Sort by</option>
-                    </select>
+                    <form action="{{ url('/admin/products') }}" method="get">
+                        <select name="sort" class="rounded-lg">
+                            <option value="">Sort by</option>
+                            <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Name: A-Z</option>
+                            <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>Name: Z-A</option>
+                            <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Price: Low to High</option>
+                            <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Price: High to Low</option>
+                        </select>
+                        <input type="text" name="search" class="rounded-lg px-3 py-2 border border-gray-300" placeholder="Type & Enter" value="{{ request('search') }}">
+                        <button type="submit" class="px-4 py-2 text-white bg-blue-500 rounded-lg">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
                 </div>
-
                 <div>
-                    <input type="text" class="rounded-lg" placeholder="Type & Enter">
                 </div>
             </div>
         </div>
 
-        <table class="w-full divide-y divide-gray-200 p-4">
+        @if($products->count() > 0)
+        <table class="w-full divide-y divide-gray-200 px-4 overflow-x-auto">
             <thead>
                 <tr>
-                    <th class="px-3 py-4 text-left text-xs font-medium text-gray-500 tracking-wider"><input type="checkbox" class="h-5 w-5 rounded-sm" /></th>
-                    <th class="px-3 py-4 text-left text-xs font-medium text-gray-500 tracking-wider">Name</th>
-                    <th class="px-3 py-4 text-left text-xs font-medium text-gray-500 tracking-wider">Added By</th>
-                    <th class="px-3 py-4 text-left text-xs font-medium text-gray-500 tracking-wider">Info</th>
-                    <th class="px-3 py-4 text-left text-xs font-medium text-gray-500 tracking-wider">Total Stock</th>
-                    <th class="px-3 py-4 text-left text-xs font-medium text-gray-500 tracking-wider">Todays Deal</th>
-                    <th class="px-3 py-4 text-left text-xs font-medium text-gray-500 tracking-wider">Published</th>
-                    <th class="px-3 py-4 text-left text-xs font-medium text-gray-500 tracking-wider">Featured</th>
-                    <th class="px-3 py-4 text-right text-xs font-medium text-gray-500 tracking-wider">Options</th>
+                    <th class="py-1 px-2 lg:px-3 lg:py-4 text-left text-xs font-medium text-gray-500 tracking-wider"><input type="checkbox" class="h-5 w-5 rounded-sm" /></th>
+                    <th class="py-1 px-2 lg:px-3 lg:py-4 text-left text-xs font-medium text-gray-500 tracking-wider">Name</th>
+                    <th class="py-1 px-2 lg:px-3 lg:py-4 text-left text-xs font-medium text-gray-500 tracking-wider">Added By</th>
+                    <th class="py-1 px-2 lg:px-3 lg:py-4 text-left text-xs font-medium text-gray-500 tracking-wider">Info</th>
+                    <th class="py-1 px-2 lg:px-3 lg:py-4 text-left text-xs font-medium text-gray-500 tracking-wider">Total Stock</th>
+                    <th class="py-1 px-2 lg:px-3 lg:py-4 text-left text-xs font-medium text-gray-500 tracking-wider">Todays Deal</th>
+                    <th class="py-1 px-2 lg:px-3 lg:py-4 text-left text-xs font-medium text-gray-500 tracking-wider">Published</th>
+                    <th class="py-1 px-2 lg:px-3 lg:py-4 text-left text-xs font-medium text-gray-500 tracking-wider">Featured</th>
+                    <th class="py-1 px-2 lg:px-3 lg:py-4 text-right text-xs font-medium text-gray-500 tracking-wider">Options</th>
                 </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                @foreach ( $products as $product )
+            <tbody class="bg-white divide-y divide-gray-200 p-4">
+                @foreach( $products as $product )
                 <tr>
-                    <td class="px-3 py-4">
+                    <td class="py-1 px-2 lg:px-3 lg:py-4">
                         <input type="checkbox" class="h-5 w-5 rounded-sm" />
                     </td>
-                    <td class="px-3 py-4">
+                    <td class="py-1 px-2 lg:px-3 lg:py-4">
                         <div class="flex">
                             <div class="flex-shrink-0 h-10 w-10">
                                 @if ($product->image)
@@ -71,43 +80,45 @@
                             </div>
                         </div>
                     </td>
-                    <td class="px-3 py-4">
-                        <div class="text-sm text-gray-900">admin</div>
-                    </td>
-                    <td class="px-3 py-4">
+                    <td class="py-1 px-2 lg:px-3 lg:py-4">
                         <div class="text-sm text-gray-900">
-                            Num of Sale: 0 Times
-                            <br>
-                            Base Price: ৳3,250.00
+                            <p>{{ Auth::user()->name }}</p>
+                        </div>
+                    </td>
+                    <td class="py-1 px-2 lg:px-3 lg:py-4">
+                        <div class="text-sm text-gray-900 font-mono">
+                            Base Price: ৳ {{number_format($product->regular_price)}}
                             <br>
                             Rating: 0.00
                         </div>
                     </td>
-                    <td class="px-3 py-4">
-                        <div class="text-sm text-gray-900">100</div>
+                    <td class="py-1 px-2 lg:px-3 lg:py-4">
+                        <div class="text-sm text-gray-900">{{$product->stock_quantity}}</div>
                     </td>
-                    <td class="px-3 py-4">
+                    <td class="py-1 px-2 lg:px-3 lg:py-4">
+                        <!-- Switch Component -->
                         <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" class="sr-only peer" />
-                            <div class="w-11 h-6 bg-gray-200 rounded-full peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 peer-checked:bg-blue-600 peer-checked:ring-offset-2 peer-checked:ring-blue-600 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 peer-disabled:bg-gray-400" />
+                            <input type="checkbox" id="product-switch" class="sr-only peer" onchange="updateProductStatus(this)" {{ $product->flash_sale == 1 ? 'checked' : '' }}>
+                            <div class="w-11 h-6 bg-gray-200 rounded-full peer-focus:ring-2 peer-focus:ring-blue-600 peer-checked:after:translate-x-5 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-5 after:h-5 after:rounded-full after:transition-transform {{ $product->flash_sale == 1 ? 'bg-green-600 after:bg-white' : 'after:bg-white'}}"></div>
+
                             <span class="sr-only">Todays Deal</span>
                         </label>
                     </td>
-                    <td class="px-3 py-4">
+                    <td class="py-1 px-2 lg:px-3 lg:py-4">
                         <!-- Switch Component -->
                         <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" id="product-switch" class="sr-only peer" onchange="updateProductStatus(this)" {{ $product->status == "published" ? 'checked' : '' }}>
+                            <input type="checkbox" id="product-switch" class="sr-only peer" {{ $product->status == "published" ? 'checked' : '' }}>
                             <div class="w-11 h-6 bg-gray-200 rounded-full peer-focus:ring-2 peer-focus:ring-blue-600 peer-checked:after:translate-x-5 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-5 after:h-5 after:rounded-full after:transition-transform {{ $product->status == 'published' ? 'bg-green-600 after:bg-white' : 'after:bg-white'}}"></div>
                         </label>
                     </td>
-                    <td class="px-3 py-4">
+                    <td class="py-1 px-2 lg:px-3 lg:py-4">
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" class="sr-only peer" />
                             <div class="w-11 h-6 bg-gray-200 rounded-full peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 peer-checked:bg-blue-600 peer-checked:ring-offset-2 peer-checked:ring-blue-600 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 peer-disabled:bg-gray-400" />
                             <span class="sr-only">Featured</span>
                         </label>
                     </td>
-                    <td class="px-3 py-4 text-right text-sm font-medium">
+                    <td class="py-1 px-2 lg:px-3 lg:py-4 text-right text-sm font-medium">
                         <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 rounded-full">
                             <a href="{{ url('product' , $product->id) }}" class="inline" target="_blank" title="view">
                                 <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
@@ -152,6 +163,12 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="p-4">
+            {{$products->links()}}
+        </div>
+        @else
+        <p class="text-center py-20 text-gray-400"><i class="fas fa-sad-tear text-[200px] mb-5 text-red-400"></i> <br> No products found.</p>
+        @endif
     </div>
 </div>
 

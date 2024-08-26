@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    
+   public function index()
+   {
+      return view('admin.index');
+   }
+
+
     public function admin_categories()
     {
         $categories = Category::all();
@@ -55,7 +63,7 @@ class AdminController extends Controller
     // Products
     public function all_products()
     {
-        $products = Product::all();
+        $products = Product::orderBy('created_at', 'desc')->paginate(5);
         return view('admin.product.all_product', compact('products'));
     }
 
@@ -97,6 +105,7 @@ class AdminController extends Controller
         $product->status = $validated['status'] ?? 'draft';
         $product->specifications = $validated['specifications'];
         $product->stock_quantity = $validated['stock_quantity'] ?? 0;
+        $product->user_id = Auth::id();
 
 
         // Handle the image upload
@@ -110,7 +119,7 @@ class AdminController extends Controller
         $product->save();
 
         toastr()->closeButton()->timeOut(3000)->addSuccess('Product Added Successfully!');
-        return redirect('/admin/products');
+        return redirect('/admin/edit_product/' . $product->id);
     }
 
 
@@ -118,6 +127,12 @@ class AdminController extends Controller
     public function delete_product($id)
     {
         $product = Product::find($id);
+
+        $image_path = public_path('upload/' . $product->image);
+        if (file_exists(($image_path))) {
+            unlink($image_path);
+        }
+
         $product->delete();
         toastr()->closeButton()->timeOut(3000)->addSuccess('Product Deleted Successfully!');
         return redirect()->back();
@@ -231,8 +246,8 @@ class AdminController extends Controller
         $duplicatedProduct->discount_price = $originalProduct->discount_price;
         $duplicatedProduct->quantity = $originalProduct->quantity;
         $duplicatedProduct->brand = $originalProduct->brand;
-        $duplicatedProduct->flash_sale = $originalProduct->flash_sale;
-        $duplicatedProduct->status = $originalProduct->status;
+        $duplicatedProduct->flash_sale = false;
+        $duplicatedProduct->status = 'draft';
         $duplicatedProduct->specifications = $originalProduct->specifications;
         $duplicatedProduct->stock_quantity = $originalProduct->stock_quantity;
 
@@ -253,5 +268,39 @@ class AdminController extends Controller
         // Provide success feedback
         toastr()->closeButton()->timeOut(3000)->addSuccess('Product duplicated successfully!');
         return redirect()->back();
+    }
+
+
+    public function product_search(Request $request)
+    {
+        $search = $request->input('search');
+        $sort = $request->input('sort');
+
+        // Start building the query
+        $query = Product::where('title', 'like', '%' . $search . '%');
+
+        // Apply sorting based on the selected option
+        switch ($sort) {
+            case 'name_asc':
+                $query->orderBy('title', 'asc');
+                break;
+            case 'name_desc':
+                $query->orderBy('title', 'desc');
+                break;
+            case 'price_asc':
+                $query->orderBy('regular_price', 'asc');
+                break;
+            case 'price_desc':
+                $query->orderBy('regular_price', 'desc');
+                break;
+            default:
+                $query->orderBy('created_at', 'desc'); // Default sort by newest
+                break;
+        }
+
+        // Paginate the results
+        $products = $query->paginate(5);
+
+        return view('admin.product.all_product', compact('products'));
     }
 }

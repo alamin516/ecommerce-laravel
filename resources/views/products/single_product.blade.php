@@ -21,7 +21,7 @@
                 <p class="text-xl font-semibold text-gray-800">${{ number_format($product->regular_price, 0, '.', ',')}}</p>
 
                 <div class="space-y-4">
-                    <p class="text-gray-700">{{ $product->description }}</p>
+                    <p class="text-gray-700">{{Str::limit($product->description, 200)}}</p>
 
                     <!-- Product Attributes -->
                     <div>

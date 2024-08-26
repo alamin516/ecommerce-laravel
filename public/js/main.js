@@ -79,4 +79,3 @@ function updatePublished(checkbox, id) {
     // Perform any action you need, e.g., send an AJAX request or update the UI
     console.log(`Checkbox value: ${value}, Checked: ${isChecked}`);
 }
-

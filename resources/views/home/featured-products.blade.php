@@ -2,11 +2,15 @@
     <div class="px-3">
         <div class="aiz-card-box group h-auto bg-white py-3 hover:trans">
             <div class="relative h-[140px] md:h-[200px] object-contain overflow-hidden">
-                <a href="#" class="block h-100" tabindex="0">
+                <a href="{{ url('product/' . $product->id)}}" class="block h-100" tabindex="0">
+                    @if ($product->image)
                     <img class="mx-auto object-contain has-transition ls-is-cached lazyloaded"
-                        src="https://industrial.com.bd/public/uploads/all/srB5LzChwrqOie2MVXkf5AG7A7jro9kYHkPLlKCW.png"
-                        alt="" title=""
-                        onerror="this.onerror=null;this.src='https://industrial.com.bd/public/assets/img/placeholder.jpg';">
+                        src="{{asset('upload/' . basename($product->image))}}"
+                        alt="" title="{{$product->title}}">
+                        @else
+                        <img class="mx-auto object-contain has-transition ls-is-cached lazyloaded"
+                        src="{{asset('upload/placeholder.jpg')}}" alt="{{$product->title}}">
+                    @endif
                 </a>
 
                 <span
@@ -40,7 +44,7 @@
                 </div>
 
                 <a class="cart-btn absolute bottom-0 left-0 w-full h-[35px] aiz-p-hov-icon text-white text-[13px] font-[700] flex flex-col justify-center items-center"
-                    href="javascript:void(0)" onclick="showAddToCartModal(158)" tabindex="0">
+                    href="{{ url('product/' . $product->id)}}"  tabindex="0">
                     <span class="cart-btn-text"> Add to cart </span>
                     <span><i class="las la-2x la-shopping-cart"></i></span>
                 </a>
@@ -49,20 +53,23 @@
 
             <div class="p-2 md:p-3 text-left">
                 <h3 class="font-[400] text-[13px] overflow-hidden leading-[1.4] mb-0 h-[35px] text-center">
-                    <a href="#" class="block text-reset hov-text-primary" tabindex="0">20V High Pressure Car Washer
-                        Machine With
-                        Battery &amp; Charger Brand Total –
-                        TPWLI20084</a>
+                    <a href="#" class="block text-reset hov-text-primary" tabindex="0">{{$product->title}}</a>
                 </h3>
 
 
                 <div class="text-sm flex justify-center mt-3">
+                    @if ($product->discount_price > 0)
                     <div class="group-hover:mr-[0%] group-hover:opacity-100 -mr-[37%] opacity-0 has-transition">
-                        <del class="font-[400] text-[#919199] mr-1">৳10,690.00</del>
+                        <del class="font-[400] text-[#919199] mr-1">৳{{number_format($product->regular_price)}}</del>
                     </div>
                     <div class="">
-                        <span class="font-[700] text-[#0adfde]">৳9,990.01</span>
+                        <span class="font-[700] text-[#0adfde]">৳{{number_format($product->discount_price)}}</span>
                     </div>
+                    @else
+                    <div class="">
+                        <span class="font-[400] text-[#919199] font-mono">৳ {{number_format($product->regular_price)}}</span>
+                    </div>
+                    @endif
                 </div>
 
             </div>

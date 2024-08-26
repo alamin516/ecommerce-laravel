@@ -7,7 +7,7 @@
         <form action="{{url('admin/update_product', $product->id) }}" method="post" enctype="multipart/form-data" class="mt-5 space-y-6">
             @csrf
 
-           
+
             <!-- Title -->
             <div>
                 <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
@@ -39,7 +39,7 @@
                 @error('image') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
             </div>
 
-            
+
             <!-- Category -->
             <div>
                 <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
@@ -85,8 +85,10 @@
 
             <!-- Flash Sale -->
             <div>
-                <label for="flash_sale" class="flex items-center space-x-3">
-                    <input type="checkbox" name="flash_sale" id="flash_sale" class="h-4 w-4 border-gray-300 rounded" {{$product-> flash_sale ? 'checked' : '' }}>
+                <label for="flash_sale" class="flex items-center space-x-3 max-w-[110px]">
+                    <input type="hidden" name="flash_sale" value="0">
+                    <input type="checkbox" name="flash_sale" id="flash_sale" class="h-4 w-4 border-gray-300 rounded" {{$product->flash_sale ? 'checked' : '' }} value="1">
+
                     <span class="text-sm font-medium text-gray-700">Flash Sale</span>
                 </label>
                 @error('flash_sale') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror

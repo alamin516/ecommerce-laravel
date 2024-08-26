@@ -7,7 +7,11 @@
             <h2 class="text-xl font-bold mb-4">
                 Categories
             </h2>
-            @include('home.categories-slider')
+            <div class="categories-slider grid lg:grid-cols-8 md:grid-cols-6 grid-cols-2">
+                @foreach ( $categories as $category)
+                @include('home.categories-slider')
+                @endforeach
+            </div>
         </div>
 
         <div class="py-5 px-5 lg:px-0">

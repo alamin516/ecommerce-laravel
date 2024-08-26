@@ -32,8 +32,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 // Admin Route
-Route::get('/admin', [HomeController::class, 'index'])->middleware(['auth', 'admin'])->name('admin');
-
+Route::get('/admin', [AdminController::class, 'index'])->middleware(['auth', 'admin'])->name('admin');
 
 // Category
 Route::get('/admin/categories', [AdminController::class, 'admin_categories'])->middleware(['auth', 'admin']);
@@ -61,6 +60,10 @@ Route::get('/admin/edit_product/{id}', [AdminController::class, 'edit_product'])
 Route::post('/admin/update_product/{id}', [AdminController::class, 'update_product'])->middleware(['auth','admin']);
 
 Route::get('/admin/duplicate_product/{id}', [AdminController::class, 'duplicate_product'])->middleware(['auth','admin']);
+
+
+Route::get('/admin/products', [AdminController::class, 'product_search']);
+
 
 Route::post('/admin/product/update-status', [ProductController::class, 'updateStatus']);
 
