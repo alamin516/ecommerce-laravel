@@ -42,12 +42,19 @@
                         </svg>
                     </a>
                 </div>
-
+                @auth
                 <a class="cart-btn absolute bottom-0 left-0 w-full h-[35px] aiz-p-hov-icon text-white text-[13px] font-[700] flex flex-col justify-center items-center"
-                    href="{{ url('product/' . $product->id)}}"  tabindex="0">
+                href="{{ route('add_to_cart', ['id' => $product->id]) }}"  tabindex="0">
                     <span class="cart-btn-text"> Add to cart </span>
                     <span><i class="las la-2x la-shopping-cart"></i></span>
                 </a>
+                @else
+                <a class="cart-btn absolute bottom-0 left-0 w-full h-[35px] aiz-p-hov-icon text-white text-[13px] font-[700] flex flex-col justify-center items-center"
+                href="{{ route('add_to_cart', ['id' => $product->id, 'redirect_to' => url()->current()]) }}"  tabindex="0">
+                    <span class="cart-btn-text"> Add to cart </span>
+                    <span><i class="las la-2x la-shopping-cart"></i></span>
+                </a>
+                @endauth
 
             </div>
 

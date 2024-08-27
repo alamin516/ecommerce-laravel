@@ -65,7 +65,7 @@ Route::get('/admin/duplicate_product/{id}', [AdminController::class, 'duplicate_
 Route::get('/admin/products', [AdminController::class, 'product_search']);
 
 
-Route::post('/admin/product/update-status', [ProductController::class, 'updateStatus']);
+Route::post('/admin/product/update-status', [ProductController::class, 'updateStatus'])->middleware(['auth','admin']);
 
 
 
@@ -75,7 +75,14 @@ Route::get('/products/all', [ProductController::class, 'get_all_products']);
 
 Route::get('/product/{id}', [ProductController::class, 'get_product']);
 
+Route::get('/add_to_cart/{id}', [ProductController::class, 'add_to_cart'])->middleware(['auth','verified']);
 
+Route::get('/add_to_cart/{id}', [ProductController::class, 'add_to_cart'])->middleware(['auth'])->name('add_to_cart');
+
+Route::get('/cart', [ProductController::class, 'cart'])->middleware(['auth','verified']);
+
+
+Route::get('/get_carts', [ProductController::class, 'get_carts'])->middleware(['auth','verified']);
 
 
 

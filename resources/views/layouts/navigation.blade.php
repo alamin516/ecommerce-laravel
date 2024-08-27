@@ -40,6 +40,20 @@
             <!-- If login or Not -->
             <div class="flex items-center justify-center">
                 @auth
+                <div class="relative inline-block">
+                    <a href="{{url('cart')}}">
+                        <i class="fa-solid fa-bag-shopping text-2xl font-bold"></i>
+                        @if($count > 0)
+                        <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-semibold rounded-full px-2 py-1">
+                           {{$count}}
+                        </span>
+                        @else
+                        <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-semibold rounded-full px-2 py-1 animate-pulse">
+                           {{$count}}
+                        </span>
+                        @endif
+                    </a>
+                </div>
                 <!-- Settings Dropdown for authenticated users -->
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
                     <x-dropdown align="right" width="48">
@@ -74,14 +88,14 @@
                             @auth
                             @if(Auth::user()-> user_role == 'user')
                             <x-dropdown-link :href="route('dashboard')">
-                                <i class="fa-solid fa-right-from-bracket"></i> {{ __('Dashboard') }}
+                               {{ __('Dashboard') }}
                             </x-dropdown-link>
                             @elseif(Auth::user()-> user_role == 'admin')
                             <x-dropdown-link :href="route('admin')">
-                                <i class="fa-solid fa-right-from-bracket"></i> {{ __('Admin') }}
+                               {{ __('Admin') }}
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('dashboard')">
-                                <i class="fa-solid fa-right-from-bracket"></i> {{ __('User Dashboard') }}
+                                {{ __('User Dashboard') }}
                             </x-dropdown-link>
                             @endif
                             @endauth
@@ -99,7 +113,7 @@
 
                                 <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                    {{ __('Log Out') }}
+                                   <i class="fa-solid fa-right-from-bracket"></i> {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>
                         </x-slot>
